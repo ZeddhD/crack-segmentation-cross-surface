@@ -1,0 +1,13 @@
+run,arch,loss,prep,split,train_size,dice,iou,precision,recall,dice_per_image_mean,n_images
+A1_unet_dice_raw,unet,dice,raw,A,7922,0.598,0.4265,0.5632,0.6373,0.5295,1647
+A2_vgg16_dice_raw,vgg16_unet,dice,raw,A,7922,0.6707,0.5045,0.6437,0.6999,0.5781,1647
+A3_resnet50_dice_raw,resnet50_unet,dice,raw,A,7922,0.2246,0.1265,0.1351,0.6674,0.2664,1647
+B1_best_bce_raw,vgg16_unet,bce,raw,A,7922,0.6436,0.4745,0.6807,0.6104,0.5449,1647
+B2_best_tversky_raw,vgg16_unet,tversky,raw,A,7922,0.6651,0.4983,0.5905,0.7613,0.564,1647
+C1_best_best_clahe,vgg16_unet,dice,clahe,A,7922,0.6317,0.4617,0.5747,0.7012,0.5794,1647
+C2_best_best_edge,vgg16_unet,dice,edge,A,7922,0.6538,0.4856,0.6228,0.688,0.5869,1647
+D1_holdout_wall,vgg16_unet,dice,raw,B_wall,4054,0.1704,0.0931,0.5292,0.1016,0.1236,4864
+D2_holdout_pavement,vgg16_unet,dice,raw,B_pavement,4578,0.2103,0.1175,0.5718,0.1289,0.2256,4248
+D3_size_matched_control,vgg16_unet,dice,raw,B_control,4054,0.6611,0.4938,0.6424,0.681,0.6006,4864
+E1_seed_repeat_1,vgg16_unet,dice,raw,A,7922,0.665,0.4981,0.6484,0.6825,0.5718,1647
+E2_seed_repeat_2,vgg16_unet,dice,raw,A,7922,0.6734,0.5076,0.669,0.6779,0.5801,1647

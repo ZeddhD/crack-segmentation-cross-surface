@@ -1,0 +1,34 @@
+{
+  "quick_test": false,
+  "batch_size": 48,
+  "crop_size": 128,
+  "eval_size": 448,
+  "best_architecture": "vgg16_unet",
+  "best_loss": "dice",
+  "best_preprocessing": "raw",
+  "runs_finished": 12,
+  "splits": {
+    "A": {
+      "train": 7922,
+      "val": 1398,
+      "test": 1647
+    },
+    "B_wall": {
+      "train": 4054,
+      "val": 715,
+      "test": 4864
+    },
+    "B_pavement": {
+      "train": 4578,
+      "val": 807,
+      "test": 4248
+    },
+    "B_control": {
+      "train": 4054,
+      "val": 715,
+      "test": 4864
+    }
+  },
+  "dedup_dropped": 331,
+  "leaked_test_removed": 48
+}

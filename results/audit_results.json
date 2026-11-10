@@ -1,0 +1,175 @@
+{
+  "seed": 42,
+  "paths": {
+    "train_images": "/content/data/crack_segmentation_dataset/train/images",
+    "train_masks": "/content/data/crack_segmentation_dataset/train/masks",
+    "test_images": "/content/data/crack_segmentation_dataset/test/images",
+    "test_masks": "/content/data/crack_segmentation_dataset/test/masks"
+  },
+  "counts": {
+    "train_images": 9603,
+    "train_masks": 9603,
+    "test_images": 1695,
+    "test_masks": 1695,
+    "total_images": 11298
+  },
+  "unpaired_files": 0,
+  "unreadable_files": 0,
+  "dimensions": {
+    "uniform": true,
+    "height": 448,
+    "width": 448,
+    "pixels_per_image": 200704,
+    "unique_image_shapes": 1,
+    "unique_mask_shapes": 1
+  },
+  "mask_values": {
+    "unique_count": 20,
+    "min": 0,
+    "max": 255,
+    "masks_with_intermediate_values": 175,
+    "clean_binary": false
+  },
+  "foreground_ratio": {
+    "sample_size": 1000,
+    "mean": 0.03671963687818878,
+    "median": 0.026563994738520405,
+    "std": 0.03722472721069294,
+    "min": 0.0,
+    "max": 0.31516561702806123,
+    "zero_crack_masks": 120,
+    "background_to_crack": 26.23
+  },
+  "prefix_counts": {
+    "CFD": 118,
+    "CRACK500": 3363,
+    "DeepCrack": 521,
+    "Eugen": 55,
+    "GAPS384": 509,
+    "Rissbilder": 3822,
+    "Sylvie": 185,
+    "Volker": 990,
+    "cracktree200": 206,
+    "forest": 118,
+    "noncrack": 1411
+  },
+  "stratification": {
+    "max_share_gap_points": 0.0365
+  },
+  "noncrack": {
+    "train": 1199,
+    "test": 212,
+    "total": 1411,
+    "share": 12.4889,
+    "mean_ratio_crack_only": 0.04163224135849068,
+    "mean_ratio_noncrack_only": 0.0,
+    "crack_labelled_empty_masks": 2
+  },
+  "duplicates": {
+    "files_hashed": 11298,
+    "unique_hashes": 10967,
+    "duplicate_groups": 169,
+    "redundant_copies": 331,
+    "cross_split_groups": 61
+  },
+  "leakage": {
+    "shared_hashes": 61,
+    "leaked_test_images": 72,
+    "leaked_test_share_pct": 4.2478
+  },
+  "prefix_aliasing": {
+    "pairs": {
+      "CFD + Sylvie": 118,
+      "CFD + forest": 118,
+      "Sylvie + forest": 118
+    },
+    "aliased_prefixes": [
+      "CFD",
+      "Sylvie",
+      "forest"
+    ]
+  },
+  "families": {
+    "mapping": {
+      "CRACK500": "pavement",
+      "GAPS384": "pavement",
+      "cracktree200": "pavement",
+      "CFD": "pavement",
+      "forest": "pavement",
+      "Sylvie": "pavement",
+      "Rissbilder": "wall",
+      "Volker": "wall",
+      "Eugen": "wall",
+      "DeepCrack": "mixed",
+      "noncrack": "crack free"
+    },
+    "counts": {
+      "pavement": 4499,
+      "mixed": 521,
+      "wall": 4867,
+      "crack free": 1411
+    },
+    "train": {
+      "pavement": 3823,
+      "mixed": 443,
+      "wall": 4138,
+      "crack free": 1199
+    },
+    "test": {
+      "pavement": 676,
+      "mixed": 78,
+      "wall": 729,
+      "crack free": 212
+    },
+    "unassigned_prefixes": []
+  },
+  "dedup": {
+    "total_files": 11298,
+    "unique_images": 10967,
+    "files_to_drop": 331,
+    "drops_by_prefix": {
+      "Rissbilder": 1,
+      "Sylvie": 133,
+      "Volker": 2,
+      "forest": 118,
+      "noncrack": 77
+    }
+  },
+  "gates": [
+    {
+      "gate": "Mask binarity",
+      "verdict": "WARN",
+      "action": "Threshold at 127. Never divide by 255."
+    },
+    {
+      "gate": "Resolution uniformity",
+      "verdict": "PASS",
+      "action": "Train at native size. No resizing."
+    },
+    {
+      "gate": "Pairing integrity",
+      "verdict": "PASS",
+      "action": "Loader can pair by filename."
+    },
+    {
+      "gate": "Prefix reliability",
+      "verdict": "WARN",
+      "action": "Prefix is not a source label. Group by surface family."
+    },
+    {
+      "gate": "Protocol B viability",
+      "verdict": "PASS",
+      "action": "3 crack families hold 500 or more images."
+    },
+    {
+      "gate": "Class imbalance",
+      "verdict": "3.672 pct crack",
+      "action": "Severe imbalance. Dice and Tversky are required. BCE alone will fail."
+    },
+    {
+      "gate": "Split leakage",
+      "verdict": "WARN",
+      "action": "72 test images also exist in train. Deduplicate in N1."
+    }
+  ]
+}
