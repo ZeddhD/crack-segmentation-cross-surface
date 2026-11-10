@@ -1,0 +1,21 @@
+# Large artifacts are distributed via GitHub Releases, not git
+*.keras
+*.h5
+*.mp4
+runs/
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# LaTeX build output
+*.aux
+*.log
+*.out
+*.synctex.gz
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
