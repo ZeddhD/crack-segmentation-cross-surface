@@ -1,0 +1,7 @@
+# Runs on Google Colab (Tesla T4). Versions match the paper's environment.
+tensorflow==2.20.0
+numpy
+pandas
+opencv-python
+matplotlib
+kaggle

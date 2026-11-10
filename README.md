@@ -5,7 +5,7 @@ Supervised by Dr. Md. Ashraful Alam
 
 **Authors:** Zawad Ahsan, Yeamin Alam
 
-📄 [Paper (PDF)](paper/CSE463_Sec3_G03_paper.pdf) · 📊 [Slides](presentation/CSE463_Sec3_G03_slides.pptx) · 📦 [Trained models & presentation video (Release)](../../releases/tag/v1.0)
+📄 [Paper (PDF)](paper/CSE463_Sec3_G03_paper.pdf) · 💻 [Notebook](notebooks/01_crack_segmentation_project.ipynb) · 📊 [Slides](presentation/CSE463_Sec3_G03_slides.pptx) · 📦 [Trained models & presentation video (Release)](../../releases/tag/v1.0)
 
 ---
 
@@ -68,7 +68,7 @@ Full numbers are in [`results/tables/`](results/tables).
 
 ## Method Summary
 
-- **Dataset:** merged Kaggle crack segmentation dataset (CRACK500, DeepCrack, CFD, GAPS384, cracktree200, Rissbilder, Volker and others, plus non-crack images), audited for duplicates and leakage.
+- **Dataset:** merged [Kaggle crack segmentation dataset](https://www.kaggle.com/datasets/lakshaymiddha/crack-segmentation-dataset) (CRACK500, DeepCrack, CFD, GAPS384, cracktree200, Rissbilder, Volker and others, plus non-crack images), audited for duplicates and leakage.
 - **Architectures:** scratch U-Net, VGG16-UNet, ResNet50-UNet (ImageNet-pretrained encoders).
 - **Losses:** Dice, binary cross-entropy, Tversky (β = 0.7).
 - **Inputs:** raw RGB, CLAHE, edge-enhanced.
@@ -76,20 +76,35 @@ Full numbers are in [`results/tables/`](results/tables).
 - **Evaluation:** full 448×448 images, threshold 0.5, pooled pixel counts.
 - **Hardware:** Google Colab, NVIDIA Tesla T4, TensorFlow 2.20 / Keras, mixed precision (float16).
 
+## Reproducing the Experiments
+
+All code is in [`notebooks/01_crack_segmentation_project.ipynb`](notebooks/01_crack_segmentation_project.ipynb), built for **Google Colab** with a T4 GPU. It builds the data pipeline, trains all 12 runs, and produces the result tables and figures.
+
+1. Open the notebook in Colab and select a GPU runtime.
+2. Add your Kaggle credentials as Colab secrets named `KAGGLE_USERNAME` and `KAGGLE_KEY` (🔑 icon in the left sidebar). The notebook downloads the dataset itself.
+3. The notebook mounts Google Drive and writes models, tables and figures to `MyDrive/cse463/`.
+4. It expects the dataset audit output (`audit_results.json`) on Drive, produced by the companion audit notebook (`00_data_audit.ipynb`, not included). A copy of that output is in [`results/audit_results.json`](results/audit_results.json).
+5. Run all cells. A run registry on Drive records finished runs, so after a Colab disconnect you can rerun the notebook and completed runs are skipped.
+
+Dependencies are listed in [`requirements.txt`](requirements.txt); Colab already provides everything except `kaggle`.
+
 ## Repository Structure
 
 ```
 .
+├── notebooks/
+│   └── 01_crack_segmentation_project.ipynb  # Full pipeline: data, training, evaluation, figures
 ├── paper/
 │   ├── CSE463_Sec3_G03_paper.pdf      # Final IEEE-format paper
 │   └── latex/                         # Overleaf source (main.tex + figures)
 ├── presentation/
 │   └── CSE463_Sec3_G03_slides.pptx    # Presentation slides
-└── results/
-    ├── final_summary.json             # Best config, data splits, dedup stats
-    ├── audit_results.json             # Dataset audit (counts, masks, leakage)
-    ├── tables/                        # Per-run metrics, leakage, per-family Dice
-    └── training_history/              # Per-epoch training/validation metrics
+├── results/
+│   ├── final_summary.json             # Best config, data splits, dedup stats
+│   ├── audit_results.json             # Dataset audit (counts, masks, leakage)
+│   ├── tables/                        # Per-run metrics, leakage, per-family Dice
+│   └── training_history/              # Per-epoch training/validation metrics
+└── requirements.txt                   # Python dependencies
 ```
 
 ## Trained Models & Video
@@ -105,7 +120,7 @@ The trained models (~223 MB each) and the presentation video (~260 MB) are large
 | `E2_seed_repeat_2_best.keras` | A2 repeated with seed 202 |
 | `Cse463.mp4` | Recorded presentation |
 
-Load a model with Keras (custom loss/metric functions may need to be passed via `custom_objects`, or use `compile=False` for inference):
+Load a model for inference with Keras (`compile=False` skips the custom loss and metric functions, as the notebook does):
 
 ```python
 import keras
